@@ -171,6 +171,7 @@ export default {
 .contacts-list__header {
 	min-height: 48px;
 }
+
 .search-contacts-field {
 	padding: 5px 10px 5px 40px;
 	> input {
