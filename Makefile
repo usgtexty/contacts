@@ -102,7 +102,7 @@ assemble:
 	mkdir -p $(appstore_build_directory)
 	rsync -a \
 	--exclude=babel.config.js \
-	--exclude=/build \
+	--exclude=build \
 	--exclude=composer.json \
 	--exclude=composer.lock \
 	--exclude=docs \
