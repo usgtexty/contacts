@@ -85,7 +85,7 @@ clean-dev:
 appstore:
 	rm -rf $(appstore_build_directory)
 	mkdir -p $(appstore_build_directory)
-	tar cvzf $(appstore_package_name).tar.gz \
+	tar czf $(appstore_package_name).tar.gz \
 	--exclude-vcs \
 	$(project_directory)/appinfo \
 	$(project_directory)/css \
@@ -96,3 +96,43 @@ appstore:
 	$(project_directory)/js \
 	$(project_directory)/COPYING \
 	$(project_directory)/CHANGELOG.md
+
+assemble:
+	rm -rf $(appstore_build_directory)
+	mkdir -p $(appstore_build_directory)
+	rsync -a \
+	--exclude=babel.config.js \
+	--exclude=/build \
+	--exclude=composer.json \
+	--exclude=composer.lock \
+	--exclude=docs \
+	--exclude=.drone.yml \
+	--exclude=tsconfig.json \
+	--exclude=phpunit.xml \
+	--exclude=.eslintignore \
+	--exclude=.eslintrc.js \
+	--exclude=.git \
+	--exclude=.gitattributes \
+	--exclude=.github \
+	--exclude=.gitignore \
+	--exclude=.l10nignore \
+	--exclude=mkdocs.yml \
+	--exclude=Makefile \
+	--exclude=node_modules \
+	--exclude=package.json \
+	--exclude=package-lock.json \
+	--exclude=.php_cs.dist \
+	--exclude=.php_cs.cache \
+	--exclude=psalm.xml \
+	--exclude=README.md \
+	--exclude=src \
+	--exclude=.stylelintignore \
+	--exclude=stylelint.config.js \
+	--exclude=.tx \
+	--exclude=tests \
+	--exclude=vendor \
+	--exclude=webpack.js \
+	--exclude=webpack.config.js \
+	$(project_directory) $(appstore_build_directory)
+	tar -czf $(appstore_build_directory)/$(app_name).tar.gz \
+		-C $(appstore_build_directory) $(app_name)
